@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * Item class
  */
-public class Item {
+public class Item extends Observable {
 
     private String title;
     private String maker;
@@ -44,15 +44,21 @@ public class Item {
     }
 
     public void setId() {
+
         this.id = UUID.randomUUID().toString();
+        notifyObservers();
     }
 
     public void updateId(String id){
+
         this.id = id;
+        notifyObservers();
     }
 
     public void setTitle(String title) {
+
         this.title = title;
+        notifyObservers();
     }
 
     public String getTitle() {
@@ -60,7 +66,9 @@ public class Item {
     }
 
     public void setMaker(String maker) {
+
         this.maker = maker;
+        notifyObservers();
     }
 
     public String getMaker() {
@@ -68,7 +76,9 @@ public class Item {
     }
 
     public void setDescription(String description) {
+
         this.description = description;
+        notifyObservers();
     }
 
     public String getDescription() {
@@ -76,7 +86,9 @@ public class Item {
     }
 
     public void setDimensions(String length, String width, String height) {
+
         this.dimensions = new Dimensions(length, width, height);
+        notifyObservers();
     }
 
     public String getLength(){
@@ -92,7 +104,9 @@ public class Item {
     }
 
     public void setStatus(String status) {
+
         this.status = status;
+        notifyObservers();
     }
 
     public String getStatus() {
@@ -100,7 +114,9 @@ public class Item {
     }
 
     public void setBorrower(Contact borrower) {
+
         this.borrower = borrower;
+        notifyObservers();
     }
 
     public Contact getBorrower() {
@@ -116,12 +132,14 @@ public class Item {
             byte[] b = byteArrayBitmapStream.toByteArray();
             image_base64 = Base64.encodeToString(b, Base64.DEFAULT);
         }
+        notifyObservers();
     }
 
     public Bitmap getImage(){
         if (image == null && image_base64 != null) {
             byte[] decodeString = Base64.decode(image_base64, Base64.DEFAULT);
             image = BitmapFactory.decodeByteArray(decodeString, 0, decodeString.length);
+            notifyObservers();
         }
         return image;
     }
